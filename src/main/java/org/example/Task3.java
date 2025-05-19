@@ -8,14 +8,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 
 public class Task3 {
     public static void main(String[] args) {
-        // Установка пути к драйверу через системную переменную
+
         System.setProperty("webdriver.chrome.driver", "D:\\Games\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
 
@@ -39,22 +38,19 @@ public class Task3 {
             JSONArray temps = (JSONArray) hourly.get("temperature_2m");
             JSONArray rains = (JSONArray) hourly.get("rain");
 
-            // Создаем папку result, если ее нет
             if (!Files.exists(Paths.get("result"))) {
                 Files.createDirectories(Paths.get("result"));
             }
 
-            // Форматирование чисел
             DecimalFormat tempFormat = new DecimalFormat("+#;-#");
             DecimalFormat rainFormat = new DecimalFormat("0.0");
 
-            // Вывод в консоль с красивым форматированием
+
             System.out.println("\nПрогноз погоды в Нижнем Новгороде");
             System.out.println("+----+--------+------------+---------+");
             System.out.println("| №  | Время  | Температура | Осадки |");
             System.out.println("+----+--------+------------+---------+");
 
-            // Запись в файл
             try (FileWriter writer = new FileWriter("result/forecast.txt")) {
                 writer.write("Прогноз погоды в Нижнем Новгороде\n");
                 writer.write("+----+--------+------------+---------+\n");
@@ -65,12 +61,10 @@ public class Task3 {
                     String time = ((String) times.get(i)).substring(11);
                     String temp = tempFormat.format(Double.parseDouble(temps.get(i).toString()));
                     String rain = rainFormat.format(Double.parseDouble(rains.get(i).toString()));
-
-                    // Форматированный вывод в консоль
+                    
                     System.out.printf("| %-2d | %s | %5s°C    | %5s мм |\n",
                             i+1, time, temp, rain);
 
-                    // Запись в файл
                     writer.write(String.format("| %-2d | %s | %5s°C    | %5s мм |\n",
                             i+1, time, temp, rain));
                 }

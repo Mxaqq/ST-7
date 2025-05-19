@@ -11,12 +11,10 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class Task2 {
     public static void main(String[] args) {
-        // Установка пути к драйверу
         System.setProperty("webdriver.chrome.driver", "D:\\Games\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
 
-        // Настройка опций Chrome для безголового режима (опционально)
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless"); // Раскомментировать для безголового режима
+        options.addArguments("--headless");
         options.addArguments("--disable-extensions");
         options.addArguments("--window-size=1920,1080");
 
@@ -28,7 +26,6 @@ public class Task2 {
             String url = "https://api.ipify.org/?format=json";
             driver.get(url);
 
-            // Явное ожидание (можно добавить WebDriverWait для большей надежности)
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -47,7 +44,6 @@ public class Task2 {
 
             String ip = (String) obj.get("ip");
 
-            // Красивый вывод IP-адреса
             System.out.println("\n+---------------------+");
             System.out.println("|   Ваш IP-адрес:     |");
             System.out.println("+---------------------+");
